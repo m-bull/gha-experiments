@@ -29,7 +29,7 @@ jobs:
           echo "EVENT ${{ github.event_name }}"
 
       - name: Delete resources
-        if: ${{ inputs.delete-resources == '' && inputs.delete-resources }}
+        if: ${{ github.event_name == 'schedule' || inputs.delete-resources }}
         run: |
           echo "ALWAYS RUN ON SCHEDULE"
 
