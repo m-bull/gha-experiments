@@ -28,7 +28,7 @@ jobs:
           echo "INPUT (delete-resources): ${{ inputs.delete-resources }}"
 
       - name: Always run in cron
-        if: ${{ inputs.delete-resources == '' || inputs.delete-resources }}
+        if: ${{ inputs.delete-resources == '' && inputs.delete-resources }}
         run: |
           echo "ALWAYS RUN ON SCHEDULE"
 
