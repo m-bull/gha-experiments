@@ -1,19 +1,18 @@
 ---
 name: Check inputs for cron and dispatch
 on:
+  workflow_dispatch:
+    inputs:
+      delete-all-keypairs:
+        type: boolean
+        description: "Delete all CI user keypairs"
+        required: true
+      delete-resources:
+        type: boolean
+        description: "Delete resources older than 6h"
+        required: true
   schedule:
-  # Every 10 minutes
-  - cron: "*/5 * * * *"
-  #workflow_dispatch:
-  #  inputs:
-  #    delete-all-keypairs:
-  #      type: boolean
-  #      description: "Delete all CI user keypairs"
-  #      required: true
-  #    delete-resources:
-  #      type: boolean
-  #      description: "Delete resources older than 6h"
-  #      required: true
+    - cron: "*/5 * * * *"  # Runs every 5 minutes for testing
 
 jobs:
   ci-cleanup:
