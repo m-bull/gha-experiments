@@ -27,3 +27,14 @@ jobs:
           echo "INPUT (delete-all-keypairs): ${{ inputs.delete-all-keypairs }}"
           echo "INPUT (delete-resources): ${{ inputs.delete-resources }}"
 
+      - name: Always run in cron
+        if: ${{ inputs.delete-resources == '' || inputs.delete-resources }}
+        run: |
+          echo "ALWAYS RUN ON SCHEDULE"
+
+      - name: Never run in cron
+        if: ${{ inputs.delete-all-keypairs }}
+        run: |
+          echo "DONT RUN ON SCHEDULE"
+
+
