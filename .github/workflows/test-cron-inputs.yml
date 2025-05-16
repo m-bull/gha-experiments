@@ -26,6 +26,7 @@ jobs:
         run: |
           echo "INPUT (delete-all-keypairs): ${{ inputs.delete-all-keypairs }}"
           echo "INPUT (delete-resources): ${{ inputs.delete-resources }}"
+          echo "EVENT ${{ github.event_name }}"
 
       - name: Delete resources
         if: ${{ inputs.delete-resources == '' && inputs.delete-resources }}
