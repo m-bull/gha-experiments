@@ -1,5 +1,5 @@
 ---
-name: Check inputs for cron and dispatch
+name: Test exit codes
 on:
   workflow_dispatch:
 
@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Test exit codes
         shell: bash
-        run: echo -e "v0.12.0\n0.11.3" | sort -V -C
+        run: echo -e "v0.12.0\n${VERSION}" | sort -V -C
+        env:
+          VERSION: "v0.11.3"
 
 
