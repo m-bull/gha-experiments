@@ -2,40 +2,14 @@
 name: Check inputs for cron and dispatch
 on:
   workflow_dispatch:
-    inputs:
-      delete-all-keypairs:
-        type: boolean
-        description: "Delete all CI user keypairs"
-        required: true
-      delete-resources:
-        type: boolean
-        description: "Delete resources older than 6h"
-        required: true
-  schedule:
-    - cron: "*/5 * * * *"  # Runs every 5 minutes for testing
 
 jobs:
-  ci-cleanup:
-    strategy:
-      matrix:
-        target-cloud: [arcus, leafcloud]
-    name: Check inputs
+  test-job:
+    name: Test
     runs-on: ubuntu-latest
     steps:
-      - name: Check inputs
-        run: |
-          echo "INPUT (delete-all-keypairs): ${{ inputs.delete-all-keypairs }}"
-          echo "INPUT (delete-resources): ${{ inputs.delete-resources }}"
-          echo "EVENT ${{ github.event_name }}"
-
-      - name: Delete resources
-        if: ${{ github.event_name == 'schedule' || inputs.delete-resources }}
-        run: |
-          echo "ALWAYS RUN ON SCHEDULE"
-
-      - name: Delete keypairs
-        if: ${{ inputs.delete-all-keypairs }}
-        run: |
-          echo "DONT RUN ON SCHEDULE"
+      - name: Test exit codes
+        shell: bash
+        run: echo -e "v0.12.0\n0.11.3" | sort -V -C
 
 
