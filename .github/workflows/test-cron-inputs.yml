@@ -10,8 +10,18 @@ jobs:
     steps:
       - name: Test exit codes
         shell: bash
+        id: test
         run: echo -e "v0.12.0\n${VERSION}" | sort -V -C
         env:
-          VERSION: "v0.12.3"
+          VERSION: "v0.11.3"
+        continue-on-error: true
+
+      - name: Run if success
+        if: ${{ steps.test.outcome == 'success' }}
+        run: echo SUCCESS
+
+      - name: Run if failure
+        if: ${{ steps.test.outcome != 'success' }}
+        run: echo FAILURE
 
 
