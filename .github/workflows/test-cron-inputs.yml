@@ -14,7 +14,16 @@ jobs:
         run: echo -e "v0.12.0\n${VERSION}" | sort -V -C
         env:
           VERSION: "v0.11.3"
+          URL: https://example.com/${VERSION}
         continue-on-error: true
+
+      - name: Test env vars
+        shell: bash
+        run: |
+          URL=https://example.com/${VERSION}
+          echo ${URL}
+        env:
+          VERSION: "v0.11.3"
 
       - name: Run if success
         if: ${{ steps.test.outcome == 'success' }}
